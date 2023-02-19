@@ -35,15 +35,20 @@ def get_user_info():
         return
 
     # Extract relevant user info from response
-    user_info = response['userInfo']
+    user_info = response.get('userInfo')
 
-    username = user_info['uniqueId']
-    avatar_url = user_info['avatarThumb']
-    num_videos = user_info['videoCount']
-    num_followers = user_info['followerCount']
-    num_following = user_info['followingCount']
-    is_private = user_info['isSecret']
-    is_verified = user_info['verified']
+    if not user_info:
+        console = Console()
+        console.print("Invalid username. Please enter a valid username.")
+        return
+
+    username = user_info.get('uniqueId')
+    avatar_url = user_info.get('avatarThumb')
+    num_videos = user_info.get('videoCount')
+    num_followers = user_info.get('followerCount')
+    num_following = user_info.get('followingCount')
+    is_private = user_info.get('isSecret')
+    is_verified = user_info.get('verified')
 
     # Create table to display user info
     table = Table(show_header=False, show_lines=True)
@@ -52,7 +57,13 @@ def get_user_info():
     table.add_row("Username:", username)
 
     # Download and display user avatar
-    response = urlopen(avatar_url)
+    try:
+        response = urlopen(avatar_url)
+    except ValueError:
+        console = Console()
+        console.print("Invalid username. Please enter a valid username.")
+        return
+
     img_data = response.read()
     img = tk.PhotoImage(data=img_data)
     avatar_label = tk.Label(image=img)
