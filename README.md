@@ -5,5 +5,5 @@ This script creates a tkinter window with a header label, input label, input fie
 **Note:** To use the `rich` library, you'll need to install it first by running `pip install rich.
 
 
-**Preview:** <br/>
+**Preview:** <br/><br/>
 ![image](https://user-images.githubusercontent.com/88579983/219943752-a5f54b10-4ab8-47e1-9eab-8085a027ca3e.png)
